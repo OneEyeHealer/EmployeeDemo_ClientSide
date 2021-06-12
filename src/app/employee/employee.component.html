@@ -1,0 +1,152 @@
+<app-form-employee
+  *ngIf="formSubmit"
+  [employees]="employees"
+  [employeeModel]="employeeModel"
+  [refresh]="refresh"
+>
+</app-form-employee>
+
+<!-- <pre>{{ employees | json }}</pre> -->
+<!-- <pre>{{ addresses | json }}</pre> -->
+<ng-container *ngIf="(!formSubmit && !addressShow) || !employeeShow">
+  <div class="text-center">
+    <h1 class="text-primary fancy">Employee Table</h1>
+  </div>
+  <!-- <div class="row">
+    <div class="col form-box">
+      <button (click)="downloadAsExcel()" class="btn btn-light">
+        <i class="fa fa-file-code-o text-success">&nbsp;Export JSON</i>
+      </button>
+      &nbsp;
+      <button (click)="onExportExcel()" class="btn btn-light">
+        <i class="fa fa-table text-success">&nbsp;Export Table</i>
+      </button>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col text-left">
+      <h3>Total Emplyee: &nbsp;{{ employees.length }}</h3>
+    </div>
+    <div class="col text-center">
+      <pagination-controls
+        (pageChange)="pageSize = $event"
+      ></pagination-controls>
+    </div>
+    <div class="col form-box">
+      <i class="fa fa-search"></i>&nbsp;<input
+        type="search"
+        name="search"
+        id="search"
+        [(ngModel)]="search"
+        placeholder="Search"
+        (input)="onSearch($event)"
+      />
+    </div>
+  </div>
+  <table class="table table-dark table-striped text-center" id="excel_table">
+    <thead>
+      <tr>
+        <th scope="col" (click)="onSort('Id')">
+          # &nbsp;<i
+            class="fa"
+            [ngClass]="{
+              inactive: key !== 'Id',
+              'fa-sort-asc': sort === 'asc',
+              'fa-sort-desc': sort === 'desc'
+            }"
+          ></i>
+        </th>
+        <th scope="col" (click)="onSort('FirstName')">
+          Name &nbsp;
+          <i
+            class="fa"
+            [ngClass]="{
+              inactive: key !== 'FirstName',
+              'fa-sort-asc': sort === 'asc',
+              'fa-sort-desc': sort === 'desc'
+            }"
+          ></i>
+          <!-- <i *ngIf="key !== 'FirstName'" class="inactive"></i>
+          <i *ngIf="sort === 'asc'; else descBlock" class="fa fa-sort-asc"></i>
+          <ng-template #descBlock><i class="fa fa-sort-desc"></i></ng-template> -->
+        </th>
+        <th scope="col" (click)="onSort('Phone')">
+          Phone &nbsp;
+          <i
+            class="fa"
+            [ngClass]="{
+              inactive: key !== 'Phone',
+              'fa-sort-asc': sort === 'asc',
+              'fa-sort-desc': sort === 'desc'
+            }"
+          ></i>
+        </th>
+        <th scope="col">Date Of Birth</th>
+        <th scope="col">Default Address</th>
+        <!-- <th
+          scope="col"
+          *ngFor="let data of employee | keyvalue"
+          (click)="onSort()"
+        >
+          {{ data.key }}
+        </th> -->
+        <th scope="col" colspan="3">{{ "Options" }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="employee; else noData">
+        <tr
+          *ngFor="
+            let data of employees
+              | orderBy: key:reverse
+              | paginate: { itemsPerPage: 5, currentPage: pageSize };
+            let index = index
+          "
+        >
+          <th>{{ index + 1 }}</th>
+          <td>{{ data.FirstName }}</td>
+          <td>{{ data.Phone }}</td>
+          <td>{{ OnDob(data.DateOfBirth) }}</td>
+          <td>{{ getDefaultAddress(data.Addresses) }}</td>
+          <td title="Edit" (click)="employeeEdit(data.Id)">
+            <i class="fa fa-pencil text-primary"></i>
+          </td>
+          <td title="Info" (click)="getDataId(data.Id)">
+            <i class="fa fa-info-circle text-light"></i>
+          </td>
+          <td title="Delete" (click)="employeeDelete(data.Id)">
+            <i class="fa fa-trash text-danger"></i>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noData>
+        <tr>
+          <td colspan="7">
+            <img
+              src="https://camo.githubusercontent.com/ead8ba04115a9a5edfadd6f0e3a1a2dd4878c277939696d8d9fc5d19d47e3284/68747470733a2f2f692e696d6775722e636f6d2f6241354c4b644a2e676966"
+              alt="loding"
+              width="100%"
+              height="300px"
+            />
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</ng-container>
+<app-info-employee
+  *ngIf="employeeShow"
+  [employeeShow]="employeeShow"
+  [addressShow]="addressShow"
+  [formSubmit]="formSubmit"
+  [data]="employeeInfo"
+  [employeeEdit]="employeeEdit"
+  [getDataId]="getDataId"
+  [employeeDelete]="employeeDelete"
+  [addresses]="addresses"
+  [addressLen]="addressLen"
+  [addressModel]="addressModel"
+  [addressEdit]="addressEdit"
+  [addressDelete]="addressDelete"
+  [refresh]="refresh"
+></app-info-employee>

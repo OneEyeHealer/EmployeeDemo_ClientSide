@@ -1,0 +1,118 @@
+<ng-container *ngIf="employeeShow">
+  <button class="btn btn-primary btn-sm m-3" (click)="employeeInfoBtn()">
+    {{ employeeShow ? "back" : null }}
+  </button>
+  <div class="container text-center m-5" *ngIf="employeeShow">
+    <h1 class="text-primary fancy"><span>Employee Details</span></h1>
+    {{ data | json }}
+  </div>
+  <app-form-address
+    *ngIf="addressShow"
+    [addresses]="addresses"
+    [addressModel]="addressModel"
+    [refresh]="refresh"
+  ></app-form-address>
+
+  <div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row row-col-1 row-col-md-2 row-col-xl-3">
+      <div class="container col-6 mb-4">
+        <div class="container card" *ngIf="data.Id">
+          <div class="cards-options">
+            <a (click)="employeeEdit(data.Id)"
+              ><i class="fa fa-pencil text-primary"></i
+            ></a>
+            <!--            <a (click)="getDataId(data.Id)"><i class="fa fa-info text-info"></i></a>-->
+            <a (click)="employeeDelete(data.Id)"
+              ><i class="fa fa-trash text-danger"></i
+            ></a>
+          </div>
+          <h3 class="card-small">
+            Employee
+            <a class="text-secondary"> #{{ data.Id }} </a>
+          </h3>
+          <div class="card-small">
+            <h6>
+              Name:
+              <span>{{ data.FirstName }}</span>
+            </h6>
+          </div>
+          <div class="card-small">
+            <h6>
+              Phone:
+              <span>{{ data.Phone }}</span>
+            </h6>
+          </div>
+          <div class="card-small">
+            <h6>
+              Age:
+              <span>{{ data.Age }}</span>
+            </h6>
+          </div>
+          <div class="card-small">
+            <h6>
+              Department:
+              <span>{{ data.Department }}</span>
+            </h6>
+          </div>
+          <div class="card-small">
+            <span
+              *ngIf="addAddress"
+              class="float-btn font-weight-bolder btn btn-primary btn-sm"
+              (click)="addNewAddress(data.Id)"
+            >
+              <a>+ new Address</a>
+            </span>
+            <h6>Address:</h6>
+            <div class="row m-auto" *ngIf="addressLen > 0; else emptyAddress">
+              <div *ngFor="let address of addresses" class="col-lg-6 col-md-12">
+                <div
+                  class="address-box"
+                  *ngIf="address && address.Id === data.Id"
+                >
+                  <span
+                    class="float-btn"
+                    (click)="addressDelete(address.AddressId)"
+                  >
+                    <i class="fa fa-trash text-danger"></i>
+                  </span>
+                  <span
+                    class="float-btn"
+                    (click)="addressEdit(address.AddressId)"
+                  >
+                    <i class="fa fa-pencil text-primary"></i>
+                  </span>
+
+                  <p class="text-secondary">#{{ address.AddressId || null }}</p>
+                  <span
+                    class="badge pointer"
+                    [ngClass]="{
+                      'bg-primary': address.AddressType,
+                      'bg-secondary': !address.AddressType
+                    }"
+                    >{{ address.AddressType ? "Primary" : "Other" }}</span
+                  >
+                  <p>
+                    <span>House No:</span>
+                    {{ address.HouseNo ? address.HouseNo : "empty" }}
+                  </p>
+                  <p>
+                    <span>Street:</span>
+                    {{ address.Street ? address.Street : "empty" }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <ng-template #emptyAddress>
+              <div class="container card mb-3">
+                <img
+                  src="https://i.pinimg.com/originals/c9/22/68/c92268d92cf2dbf96e3195683d9e14fb.png"
+                  alt="no data found"
+                />
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

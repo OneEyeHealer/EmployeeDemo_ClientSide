@@ -1,0 +1,165 @@
+<div class="container m-auto">
+  <div class="text-center">
+    <h1 class="text-primary fancy">employee Form</h1>
+  </div>
+  <form
+    #employeeForm="ngForm"
+    (ngSubmit)="employeeSubmit()"
+    class="form-border"
+  >
+    <div [hidden]="employeeForm.submitted">
+      <div
+        [class.cross-validation-error]="
+          employeeForm.errors?.identityRevealed &&
+          (employeeForm.touched || employeeForm.dirty)
+        "
+      >
+        <div class="row">
+          <div class="col form-box">
+            <label for="FirstName">Employee Name:</label>
+          </div>
+          <div class="col">
+            <input
+              name="FirstName"
+              id="FirstName"
+              [(ngModel)]="employeeModel.FirstName"
+              class="form-control"
+              type="text"
+              #FirstName="ngModel"
+              ng-required="true"
+              required
+              minlength="3"
+              (ngModelChange)="validateFields($event)"
+            />
+            <!-- (input)='validateFields($event)' -->
+            <div
+              *ngIf="
+                FirstName.invalid && (FirstName.dirty || FirstName.touched)
+              "
+              class="alert"
+            >
+              <span>{{ validateFields(FirstName) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box"><label for="Phone">Phone: </label></div>
+          <div class="col">
+            <input
+              name="Phone"
+              [(ngModel)]="employeeModel.Phone"
+              class="form-control"
+              type="number"
+              #Phone="ngModel"
+              ng-required="true"
+              required
+              pattern="^((\\+91-?)|0)?[0-9]{10}$"
+              (ngModelChange)="validateFields($event)"
+            />
+            <div
+              *ngIf="Phone.invalid && (Phone.dirty || Phone.touched)"
+              class="alert"
+            >
+              <span>{{ validateFields(Phone) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box">
+            <label for="DateOfBirth">Date of Birth: </label>
+          </div>
+          <div class="col">
+            <input
+              name="DateOfBirth"
+              id="DateOfBirth"
+              [(ngModel)]="employeeModel.DateOfBirth"
+              class="form-control"
+              type="date"
+              max="2003-01-01"
+              min="1980-01-01"
+              #DateOfBirth="ngModel"
+              ng-required="true"
+              (ngModelChange)="calculateAge(employeeModel.DateOfBirth)"
+              required
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box"><label for="Age">Age: </label></div>
+          <div class="col">
+            <input
+              name="Age"
+              id="Age"
+              [(ngModel)]="employeeModel.Age"
+              class="form-control"
+              type="number"
+              pattern="^(0*[1-5]\d)$"
+              #Age="ngModel"
+              ng-required="true"
+              required
+              readonly
+            />
+            <div
+              *ngIf="Age.invalid && (Age.dirty || Age.touched)"
+              class="alert"
+            >
+              <span>{{ validateFields(Age) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box">
+            <label for="Department">Department: </label>
+          </div>
+          <div class="col">
+            <select
+              name="Department"
+              id="Department"
+              [(ngModel)]="employeeModel.Department"
+              class="form-control"
+              #Department="ngModel"
+              required
+            >
+              <option *ngFor="let dept of Departments" [value]="dept">
+                {{ dept }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                Department.invalid && (Department.dirty || Department.touched)
+              "
+              class="alert"
+            >
+              <span>{{ validateFields(Department) }}</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center">{{ employeeModel | json }}</p>
+        <div class="row">
+          <div class="col m-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-sm"
+              [disabled]="!employeeForm.form.valid"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="submitted-message" *ngIf="employeeForm.submitted">
+      <p>
+        An Employee: <span>{{ employeeForm.value.FirstName }}</span> Submitted
+        !!
+      </p>
+    </div>
+  </form>
+</div>
+
+<ng-template #noError>
+  <p></p>
+</ng-template>
+<!--<button-->
+<!--  class="btn btn-primary"-->
+<!--  (click)="submitBtn()">submit</button>-->

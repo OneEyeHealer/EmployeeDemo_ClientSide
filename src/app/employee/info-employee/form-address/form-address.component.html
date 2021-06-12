@@ -1,0 +1,134 @@
+<div class="container m-auto">
+  <div class="text-center">
+    <h1 class="text-primary fancy">Address Form</h1>
+  </div>
+  <form #addressForm="ngForm" (ngSubmit)="addressSubmit()" class="form-border">
+    <div [hidden]="addressForm.submitted">
+      <div
+        [class.cross-validation-error]="
+          addressForm.errors?.identityRevealed &&
+          (addressForm.touched || addressForm.dirty)
+        "
+      >
+        <div class="row">
+          <div class="col form-box"><label for="Id">Employee Id: </label></div>
+          <div class="col">
+            <input
+              name="Id"
+              id="Id"
+              [(ngModel)]="addressModel.Id"
+              class="form-control"
+              type="text"
+              #Id="ngModel"
+              required
+              readonly
+            />
+            <div *ngIf="Id.invalid && (Id.dirty || Id.touched)" class="alert">
+              <span>{{ validateAddressField(Id) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box">
+            <label for="AddressType">AddressType: </label>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div class="col-2">
+                <input
+                  name="AddressType"
+                  id="AddressType"
+                  [(ngModel)]="addressModel.AddressType"
+                  class="form-control"
+                  type="checkbox"
+                  #AddressType="ngModel"
+                />
+              </div>
+              <div class="col my-auto">
+                <span
+                  class="badge pointer"
+                  [ngClass]="{
+                    'bg-primary': addressModel.AddressType,
+                    'bg-secondary': !addressModel.AddressType
+                  }"
+                  >{{ addressModel.AddressType ? "Default" : "Other" }}</span
+                >
+              </div>
+            </div>
+
+            <!-- <div
+              *ngIf="AddressType.invalid && (AddressType.dirty || Id.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(AddressType) }}</span>
+            </div> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box">
+            <label for="HouseNo">House No: </label>
+          </div>
+          <div class="col">
+            <input
+              name="HouseNo"
+              id="HouseNo"
+              [(ngModel)]="addressModel.HouseNo"
+              class="form-control"
+              type="text"
+              #HouseNo="ngModel"
+              required
+            />
+            <div
+              *ngIf="HouseNo.invalid && (HouseNo.dirty || HouseNo.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(HouseNo) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box"><label for="Street">Street: </label></div>
+          <div class="col">
+            <input
+              name="Street"
+              id="Street"
+              [(ngModel)]="addressModel.Street"
+              class="form-control"
+              type="text"
+              #Street="ngModel"
+              required
+            />
+            <div
+              *ngIf="Street.invalid && (Street.dirty || Street.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(Street) }}</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center">{{ addressModel | json }}</p>
+        <div class="row">
+          <div class="col m-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-sm"
+              [disabled]="!addressForm.form.valid"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="submitted-message" *ngIf="addressForm.submitted">
+      <p>
+        An Address Id: <span>{{ addressForm.value.AddressId }}</span> Submitted
+        to database !!
+      </p>
+    </div>
+  </form>
+</div>
+
+<!--<button-->
+<!--  class="btn btn-primary"-->
+<!--  (click)="submitBtn()">submit</button>-->
