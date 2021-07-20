@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
   constructor(private exportService: ExportService) {}
 
   ngOnInit(): void {}
-
+  isOpen = false;
   OnExportData = () => {
     this.exportService.onGet().subscribe(
       (response) => {

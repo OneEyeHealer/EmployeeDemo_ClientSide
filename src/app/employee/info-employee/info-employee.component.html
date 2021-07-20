@@ -3,8 +3,8 @@
     {{ employeeShow ? "back" : null }}
   </button>
   <div class="container text-center m-5" *ngIf="employeeShow">
-    <h1 class="text-primary fancy"><span>Employee Details</span></h1>
-    {{ data | json }}
+    <h1 class="text-primary fancy title-head"><span>Employee Details</span></h1>
+    <!-- {{ data | json }} -->
   </div>
   <app-form-address
     *ngIf="addressShow"
@@ -19,12 +19,15 @@
         <div class="container card" *ngIf="data.Id">
           <div class="cards-options">
             <a (click)="employeeEdit(data.Id)"
-              ><i class="fa fa-pencil text-primary"></i
-            ></a>
+              ><mat-icon class="text-primary">edit</mat-icon></a
+            >
             <!--            <a (click)="getDataId(data.Id)"><i class="fa fa-info text-info"></i></a>-->
-            <a (click)="employeeDelete(data.Id)"
-              ><i class="fa fa-trash text-danger"></i
-            ></a>
+            <a (click)="employeeDelete(data.Id)">
+              <mat-icon class="text-danger">delete</mat-icon>
+            </a>
+            <a href="https://localhost:44386/">
+              <mat-icon class="text-dark">folder_open</mat-icon></a
+            >
           </div>
           <h3 class="card-small">
             Employee
@@ -62,7 +65,10 @@
             >
               <a>+ new Address</a>
             </span>
-            <h6>Address:</h6>
+            <h6>
+              Address:
+              <span>{{ getDefaultAddress(data.Addresses) }}</span>
+            </h6>
             <div class="row m-auto" *ngIf="addressLen > 0; else emptyAddress">
               <div *ngFor="let address of addresses" class="col-lg-6 col-md-12">
                 <div
@@ -73,13 +79,13 @@
                     class="float-btn"
                     (click)="addressDelete(address.AddressId)"
                   >
-                    <i class="fa fa-trash text-danger"></i>
+                    <mat-icon class="text-danger">delete</mat-icon>
                   </span>
                   <span
                     class="float-btn"
                     (click)="addressEdit(address.AddressId)"
                   >
-                    <i class="fa fa-pencil text-primary"></i>
+                    <mat-icon class="text-primary">edit</mat-icon>
                   </span>
 
                   <p class="text-secondary">#{{ address.AddressId || null }}</p>
@@ -98,6 +104,26 @@
                   <p>
                     <span>Street:</span>
                     {{ address.Street ? address.Street : "empty" }}
+                  </p>
+                  <p>
+                    <span>City:</span>
+                    {{ address.City ? address.City : "empty" }}
+                  </p>
+                  <p>
+                    <span>State:</span>
+                    {{ address.State ? address.State : "empty" }}
+                  </p>
+                  <p>
+                    <span>Country:</span>
+                    {{ address.Country ? address.Country : "empty" }}
+                  </p>
+                  <p>
+                    <span>Pincode:</span>
+                    {{ address.Pincode ? address.Pincode : "empty" }}
+                  </p>
+                  <p>
+                    <span>Landmark:</span>
+                    {{ address.Landmark ? address.Landmark : "empty" }}
                   </p>
                 </div>
               </div>

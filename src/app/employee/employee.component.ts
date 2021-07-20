@@ -31,6 +31,7 @@ export class EmployeeComponent implements OnInit {
   fileName: string = 'ExcelSheet.xlsx';
   addressLen: number;
   employee: boolean = false;
+  filterDataShow: boolean = true;
   key: string = 'id';
   reverse: boolean = true;
   employees: Employee[] = [];
@@ -50,9 +51,12 @@ export class EmployeeComponent implements OnInit {
     private toast: ToastrService
   ) {}
   ngOnInit(): void {
+    this.CallApi();
+  }
+  CallApi = () => {
     this.getData();
     this.getAllAddress();
-  }
+  };
   refresh = () => {
     window.location.reload();
   };
@@ -71,16 +75,18 @@ export class EmployeeComponent implements OnInit {
   };
 
   filterData = () => {
-    return this.employees.filter((data) =>
+    var _data = this.employees.filter((data) =>
       data.FirstName.toLowerCase().includes(this.search.toLowerCase())
     );
+    this.filterDataShow = _data.length > 0 || _data == null;
+    return _data;
   };
   getDefaultAddress = (defaultAddress: any) => {
     if (defaultAddress.length === 0) return 'NA';
     for (let data of defaultAddress) {
       this.address = 'NA';
       if (defaultAddress.length > 0 && data.AddressType) {
-        this.address = `${data.HouseNo}, ${data.Street}`;
+        this.address = `${data.HouseNo}, ${data.Street} ${data.State}, ${data.Country}`;
         break;
       }
     }
@@ -91,6 +97,7 @@ export class EmployeeComponent implements OnInit {
       (response: any) => {
         this.employees = this.search == '' ? response : this.filterData();
         this.employee = true;
+        // this.filterDataShow = false;
       },
       (error: any) => {
         this.toast.error(`${error.message}`, 'GET: Employee');

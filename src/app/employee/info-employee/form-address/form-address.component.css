@@ -20,6 +20,13 @@ select {
   width: fit-content;
   border-left: 5px solid #429da9;
 }
+.toggle-icon-box {
+  font-size: 2em;
+  margin-right: 1em;
+  margin-left: -2.1em;
+  position: relative;
+  top: 10px;
+}
 .submitted-message {
   padding: 1em;
   border: 2px solid green;

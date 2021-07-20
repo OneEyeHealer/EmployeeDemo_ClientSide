@@ -4,6 +4,13 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "~ngx-toastr/toastr";
 @import url(https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,900);
+:root {
+  --theme-color: #673ab7;
+  --text-white: #ffffff;
+  --footer-bg: #303c6c;
+  --title-head: #303c6c;
+  --hilight-hover: rgba(0, 0, 0, 0.2);
+}
 html,
 body {
   height: 100%;
@@ -16,10 +23,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-h1 {
+main {
+  min-height: 84vh;
+}
+mat-icon {
+  cursor: pointer;
+}
+mat-icon:hover {
+  background: #f2f2f2;
+  border-radius: 100%;
+}
+th {
+  cursor: pointer;
+}
+.btn {
+  box-shadow: none !important;
+}
+h1.title-head {
   font-family: "Cinzel Decorative", cursive;
   font-size: 3em;
   font-weight: 600;
+}
+.btn-primary {
+  background: var(--theme-color);
+  border: none;
 }
 input {
   border: none;
@@ -141,4 +168,13 @@ td i {
 .card-small h6 span {
   font-size: 16px;
   font-weight: lighter;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

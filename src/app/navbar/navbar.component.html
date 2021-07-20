@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-nav-color">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"> <i class="fa fa-tags"></i> NeverEver</a>
+    <a class="navbar-brand" href="#">
+      <i class="fa fa-tags"></i>
+      DataNoid</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -14,14 +17,31 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">Contact</a>
+        <a mat-button class="nav-link active" aria-current="page" href="#"
+          >Home</a
+        >
+        <a mat-button class="nav-link" href="#">Contact</a>
       </div>
     </div>
     <div class="text-right">
-      <button class="btn btn-light" (click) = 'OnExportData()'>
-        <i class="fa fa-file-excel-o text-success">&nbsp;Export Data</i>
+      <button
+        mat-icon-button
+        type="button"
+        class="example-icon notifications"
+        aria-label="Notifications to Notifi the user"
+      >
+        <mat-icon matTooltip="Notification of DataNoid">notifications</mat-icon>
       </button>
+      <span class="account">
+        <img
+          matTooltip="Click to Open Profile"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk8cyUrYvHcRDy0ogeHCORJ4TnGpXq1PYpwQ&usqp=CAU"
+          alt="User"
+        />
+      </span>
+      <!-- <button class="btn btn-light" (click)="OnExportData()">
+        <i class="fa fa-file-excel-o text-success">&nbsp;Export Data</i>
+      </button> -->
     </div>
   </div>
 </nav>

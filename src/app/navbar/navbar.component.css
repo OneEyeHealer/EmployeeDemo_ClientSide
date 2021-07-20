@@ -1,0 +1,26 @@
+a.mat-button:hover {
+  color: gold !important;
+}
+mat-toolbar.top-navbar {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.angular-spacer {
+  flex: 1 1 auto;
+}
+.notifications {
+  color: gold;
+}
+.account {
+  padding: 8px;
+}
+.account img {
+  width: 30px;
+  height: auto;
+  cursor: pointer;
+  border-radius: 100%;
+}
+.notifications:hover,
+.account:hover {
+  background-color: #eee;
+  border-radius: 100%;
+}

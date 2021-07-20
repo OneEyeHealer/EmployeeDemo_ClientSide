@@ -1,6 +1,6 @@
 <div class="container m-auto">
   <div class="text-center">
-    <h1 class="text-primary fancy">Address Form</h1>
+    <h1 class="text-primary fancy title-head">Address Form</h1>
   </div>
   <form #addressForm="ngForm" (ngSubmit)="addressSubmit()" class="form-border">
     <div [hidden]="addressForm.submitted">
@@ -39,12 +39,24 @@
                   name="AddressType"
                   id="AddressType"
                   [(ngModel)]="addressModel.AddressType"
-                  class="form-control"
+                  class="form-control d-none"
                   type="checkbox"
                   #AddressType="ngModel"
                 />
               </div>
               <div class="col my-auto">
+                <mat-icon
+                  class="text-primary toggle-icon-box"
+                  *ngIf="addressModel.AddressType"
+                  (click)="addressModel.AddressType = !addressModel.AddressType"
+                  >toggle_on</mat-icon
+                >
+                <mat-icon
+                  class="text-secondary toggle-icon-box"
+                  *ngIf="!addressModel.AddressType"
+                  (click)="addressModel.AddressType = !addressModel.AddressType"
+                  >toggle_off</mat-icon
+                >
                 <span
                   class="badge pointer"
                   [ngClass]="{
@@ -103,6 +115,108 @@
               class="alert"
             >
               <span>{{ validateAddressField(Street) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box"><label for="City">City: </label></div>
+          <div class="col">
+            <input
+              name="City"
+              id="City"
+              [(ngModel)]="addressModel.City"
+              class="form-control"
+              type="text"
+              #City="ngModel"
+              required
+            />
+            <div
+              *ngIf="City.invalid && (City.dirty || City.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(City) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box"><label for="State">State: </label></div>
+          <div class="col">
+            <input
+              name="State"
+              id="State"
+              [(ngModel)]="addressModel.State"
+              class="form-control"
+              type="text"
+              #State="ngModel"
+              required
+            />
+            <div
+              *ngIf="State.invalid && (State.dirty || State.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(State) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box"><label for="Country">Country: </label></div>
+          <div class="col">
+            <input
+              name="Country"
+              id="Country"
+              [(ngModel)]="addressModel.Country"
+              class="form-control"
+              type="text"
+              #Country="ngModel"
+              required
+            />
+            <div
+              *ngIf="Country.invalid && (Country.dirty || Country.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(Country) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box"><label for="Pincode">Pincode: </label></div>
+          <div class="col">
+            <input
+              name="Pincode"
+              id="Pincode"
+              [(ngModel)]="addressModel.Pincode"
+              class="form-control"
+              type="text"
+              #Pincode="ngModel"
+              required
+            />
+            <div
+              *ngIf="Pincode.invalid && (Pincode.dirty || Pincode.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(Pincode) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-box">
+            <label for="Landmark">Landmark: </label>
+          </div>
+          <div class="col">
+            <input
+              name="Landmark"
+              id="Landmark"
+              [(ngModel)]="addressModel.Landmark"
+              class="form-control"
+              type="text"
+              #Landmark="ngModel"
+              required
+            />
+            <div
+              *ngIf="Landmark.invalid && (Landmark.dirty || Landmark.touched)"
+              class="alert"
+            >
+              <span>{{ validateAddressField(Landmark) }}</span>
             </div>
           </div>
         </div>

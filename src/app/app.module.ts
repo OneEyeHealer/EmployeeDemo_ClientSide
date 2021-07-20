@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormAddressComponent } from './employee/info-employee/form-address/form-address.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MaterialModule } from './material/material.module';
+import { FooterComponent } from './footer/footer.component';
 // import {Ng2OrderModule} from '';
 // Ng2OrderModule,
 @NgModule({
@@ -23,8 +25,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormEmployeeComponent,
     InfoEmployeeComponent,
     FormAddressComponent,
+    FooterComponent,
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,

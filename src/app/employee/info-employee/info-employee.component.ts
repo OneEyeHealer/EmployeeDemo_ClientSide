@@ -13,6 +13,7 @@ export class InfoEmployeeComponent implements OnInit {
   @Input() getDataId: any;
   @Input() employeeDelete: any;
   @Input() addresses: any;
+  @Input() getDefaultAddress: any;
 
   @Input() addressModel: any;
   @Input() addressEdit: any;
@@ -47,6 +48,5 @@ export class InfoEmployeeComponent implements OnInit {
     this.employeeShow = !this.employeeShow;
     this.isFormSubmit.emit(this.formSubmit);
     this.isFormSubmit.emit(this.employeeShow);
-    if (!this.employeeShow) this.refresh();
   };
 }

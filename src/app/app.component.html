@@ -1,24 +1,25 @@
 <app-navbar></app-navbar>
-<div class="container">
-  <button
-    class="btn btn-primary btn-sm m-3"
-    (click)="formSubmit = !formSubmit">
-    {{!formSubmit ? "+ new Employee" : "back"}}
-  </button>
-</div>
+<main class="main">
+  <div class="container">
+    <button
+      class="btn btn-primary btn-sm m-3"
+      (click)="formSubmit = !formSubmit"
+    >
+      {{ !formSubmit ? "+ new Employee" : "back" }}
+    </button>
+  </div>
 
-<div class="container">
-<app-employee
-  [isClick]="isClick"
-  (isClickChanged)="handleClickBtn($event)"
-
-  [formSubmit]="formSubmit"
-  (isFormSubmit)="handleForm($event)"
-
-  [employeeShow]="employeeShow"
-  (isEmployeeShow)="handleEmployee($event)"
-
-  [addressShow]="addressShow"
-  (isAddressShow)="handleAddress($event)"
-></app-employee>
-</div>
+  <div class="container">
+    <app-employee
+      [isClick]="isClick"
+      (isClickChanged)="handleClickBtn($event)"
+      [formSubmit]="formSubmit"
+      (isFormSubmit)="handleForm($event)"
+      [employeeShow]="employeeShow"
+      (isEmployeeShow)="handleEmployee($event)"
+      [addressShow]="addressShow"
+      (isAddressShow)="handleAddress($event)"
+    ></app-employee>
+  </div>
+</main>
+<app-footer></app-footer>

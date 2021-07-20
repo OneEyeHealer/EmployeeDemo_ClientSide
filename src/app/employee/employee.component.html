@@ -8,21 +8,22 @@
 
 <!-- <pre>{{ employees | json }}</pre> -->
 <!-- <pre>{{ addresses | json }}</pre> -->
-<ng-container *ngIf="(!formSubmit && !addressShow) || !employeeShow">
+<!-- (!formSubmit && !addressShow) || !employeeShow -->
+<ng-container *ngIf="!formSubmit">
   <div class="text-center">
-    <h1 class="text-primary fancy">Employee Table</h1>
+    <h1 class="text-primary fancy title-head">Employee Table</h1>
   </div>
-  <!-- <div class="row">
+  <div class="row">
     <div class="col form-box">
-      <button (click)="downloadAsExcel()" class="btn btn-light">
+      <!-- <button (click)="downloadAsExcel()" class="btn btn-light">
         <i class="fa fa-file-code-o text-success">&nbsp;Export JSON</i>
       </button>
-      &nbsp;
+      &nbsp; -->
       <button (click)="onExportExcel()" class="btn btn-light">
         <i class="fa fa-table text-success">&nbsp;Export Table</i>
       </button>
     </div>
-  </div> -->
+  </div>
   <div class="row">
     <div class="col text-left">
       <h3>Total Emplyee: &nbsp;{{ employees.length }}</h3>
@@ -95,29 +96,33 @@
     </thead>
     <tbody>
       <ng-container *ngIf="employee; else noData">
-        <tr
-          *ngFor="
-            let data of employees
-              | orderBy: key:reverse
-              | paginate: { itemsPerPage: 5, currentPage: pageSize };
-            let index = index
-          "
-        >
-          <th>{{ index + 1 }}</th>
-          <td>{{ data.FirstName }}</td>
-          <td>{{ data.Phone }}</td>
-          <td>{{ OnDob(data.DateOfBirth) }}</td>
-          <td>{{ getDefaultAddress(data.Addresses) }}</td>
-          <td title="Edit" (click)="employeeEdit(data.Id)">
-            <i class="fa fa-pencil text-primary"></i>
-          </td>
-          <td title="Info" (click)="getDataId(data.Id)">
-            <i class="fa fa-info-circle text-light"></i>
-          </td>
-          <td title="Delete" (click)="employeeDelete(data.Id)">
-            <i class="fa fa-trash text-danger"></i>
-          </td>
-        </tr>
+        <ng-container *ngIf="filterDataShow; else noFilterData">
+          <tr
+            *ngFor="
+              let data of employees
+                | orderBy: key:reverse
+                | paginate: { itemsPerPage: 5, currentPage: pageSize };
+              let index = index
+            "
+          >
+            <th>{{ index + 1 }}</th>
+            <td>{{ data.FirstName }}</td>
+            <td>{{ data.Phone }}</td>
+            <td>{{ OnDob(data.DateOfBirth) }}</td>
+            <td>
+              {{ getDefaultAddress(data.Addresses) }}
+            </td>
+            <td title="Edit" (click)="employeeEdit(data.Id)">
+              <mat-icon class="text-primary">edit</mat-icon>
+            </td>
+            <td title="Info" (click)="getDataId(data.Id)">
+              <mat-icon class="text-light">info</mat-icon>
+            </td>
+            <td title="Delete" (click)="employeeDelete(data.Id)">
+              <mat-icon class="text-danger">delete</mat-icon>
+            </td>
+          </tr>
+        </ng-container>
       </ng-container>
       <ng-template #noData>
         <tr>
@@ -126,7 +131,19 @@
               src="https://camo.githubusercontent.com/ead8ba04115a9a5edfadd6f0e3a1a2dd4878c277939696d8d9fc5d19d47e3284/68747470733a2f2f692e696d6775722e636f6d2f6241354c4b644a2e676966"
               alt="loding"
               width="100%"
-              height="300px"
+              height="250px"
+            />
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #noFilterData>
+        <tr>
+          <td colspan="7">
+            <img
+              src="https://image.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg"
+              alt="loding"
+              width="100%"
+              height="auto"
             />
           </td>
         </tr>
@@ -136,6 +153,7 @@
 </ng-container>
 <app-info-employee
   *ngIf="employeeShow"
+  [getDefaultAddress]="getDefaultAddress"
   [employeeShow]="employeeShow"
   [addressShow]="addressShow"
   [formSubmit]="formSubmit"
